@@ -1,54 +1,48 @@
-from BankAccount import BankAccount
-from errors import AccountFrozenError, InvalidOperationError, InsufficientFundsError
+from SavingAccount import SavingsAccount
+from  PremiumAccount import PremiumAccount
+from InvestmentAccount import InvestmentAccount
+from errors import InsufficientFundsError
+
 
 def main():
-    print("тест1")
+    print("--- Тест SavingsAccount ---")
     try:
-        user_account = BankAccount(owner_data="Иван Иванькин", currency="RUB")
+        saver = SavingsAccount("Анна Смирнова", "RUB", min_balance=2000)
+        saver.deposit(5000)
 
-        print(user_account)
-
-        user_account.deposit(15000)
-
-        user_account.withdraw(5000)
-
-        print(f"Текущий остаток: {user_account.get_account_info()['Balance']} RUB\n")
-
-    except Exception as e:
-        print(f"Произошла неожиданная ошибка: {e}\n")
-
-
-    print("тест2")
-    try:
-        frozen_account = BankAccount(
-            owner_data="Я Мита",
-            currency="USD",
-            status="frozen",
-            account_id="999999"
-        )
-
-        frozen_account.deposit(1000)
-
-    except AccountFrozenError as e:
-        print(f"Операция заблокирована. Ошибка: \"{e}\"\n")
-    except Exception as e:
-        print(f"Ошибка: {e}\n")
-
-
-    print("тест3")
-    try:
-        test_account = BankAccount("Дада Нетнет", "EUR")
-
-        test_account.withdraw(-500)
-
-    except InvalidOperationError as e:
-        print(f"Неверная сумма. Ошибка: \"{e}\"")
-
-    try:
-        test_account.withdraw(1000)
-
+        print("Попытка снять 4000 (остаток будет 1000, а минимум 2000)...")
+        saver.withdraw(4000)
     except InsufficientFundsError as e:
-        print(f"Нехватка средств. Ошибка: \"{e}\"")
+        print(f"Ошибка поймана: {e}")
+
+    saver.calculate_monthly_profit()
+    print(saver)
+
+    print("\n--- Тест PremiumAccount ---")
+    try:
+        vip = PremiumAccount("Илон Маск", "USD", overdraft_limit=1000)
+        vip.deposit(500)
+
+        print("Снимаем 1000 (баланс 500)...")
+        vip.withdraw(1000)
+        print(vip)
+
+        print("Попытка снять еще 1000...")
+        vip.withdraw(1000)
+    except InsufficientFundsError as e:
+        print(f"Ошибка поймана: {e}")
+
+
+    print("\n--- Тест InvestmentAccount ---")
+    inv = InvestmentAccount("Уоррен Баффет", "USD")
+    inv.deposit(10000)
+
+    inv.buy_asset("Apple Stock", quantity=10, price=150, yearly_yield=0.08)  # 8% годовых
+    inv.buy_asset("US Bonds", quantity=20, price=100, yearly_yield=0.04)  # 4% годовых
+
+    inv.project_yearly_growth()
+
+    print(inv)
 
 
 if __name__ == "__main__":
