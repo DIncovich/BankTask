@@ -10,10 +10,10 @@ def main():
         saver = SavingsAccount("Анна Смирнова", "RUB", min_balance=2000)
         saver.deposit(5000)
 
-        print("Попытка снять 4000 (остаток будет 1000, а минимум 2000)...")
+        print("Попытка снять 4000")
         saver.withdraw(4000)
     except InsufficientFundsError as e:
-        print(f"Ошибка поймана: {e}")
+        print(f"Ошибка: {e}")
 
     saver.calculate_monthly_profit()
     print(saver)
@@ -23,14 +23,14 @@ def main():
         vip = PremiumAccount("Илон Маск", "USD", overdraft_limit=1000)
         vip.deposit(500)
 
-        print("Снимаем 1000 (баланс 500)...")
+        print("Снимаем 1000")
         vip.withdraw(1000)
         print(vip)
 
-        print("Попытка снять еще 1000...")
+        print("Попытка снять еще 1000")
         vip.withdraw(1000)
     except InsufficientFundsError as e:
-        print(f"Ошибка поймана: {e}")
+        print(f"Ошибка: {e}")
 
 
     print("\n--- Тест InvestmentAccount ---")
