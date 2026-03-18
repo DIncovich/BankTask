@@ -22,7 +22,7 @@ class SavingsAccount(BankAccount):
 
     def calculate_monthly_profit(self):
         profit = self._balance * self.interest_rate
-        print(f"[Profit] Ожидаемая прибыль за месяц: {profit:.2f} {self.currency}")
+        print(f"Ожидаемая прибыль за месяц: {profit:.2f} {self.currency}")
         return profit
 
     def get_account_info(self):
@@ -35,4 +35,4 @@ class SavingsAccount(BankAccount):
         return info
 
     def __str__(self):
-        return f"[Сберегательный] {self.account_id} | Владелец: {self.owner_data} | Баланс: {self._balance} {self.currency}"
+        return f"{self.account_id} | Владелец: {self.owner_data} | Баланс: {self._balance} {self.currency}"

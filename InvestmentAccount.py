@@ -21,7 +21,7 @@ class InvestmentAccount(BankAccount):
                 'price': price,
                 'yield': yearly_yield
             }
-        print(f"[Invest] Куплено {quantity} шт. {asset_name}. Остаток кэша: {self._balance}")
+        print(f"Куплено {quantity} шт. {asset_name}. Остаток кэша: {self._balance}")
 
     def project_yearly_growth(self):
         total_growth = 0
@@ -45,4 +45,4 @@ class InvestmentAccount(BankAccount):
         return info
 
     def __str__(self):
-        return f"[Инвестиции] {self.account_id} | Активов в портфеле: {len(self.portfolio)} | Кэш: {self._balance}"
+        return f"{self.account_id} | Активов в портфеле: {len(self.portfolio)} | Кэш: {self._balance}"

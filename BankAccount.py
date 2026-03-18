@@ -25,7 +25,7 @@ class BankAccount(AbstractAccount):
         if amount <= 0:
             raise InvalidOperationError("Сумма должна быть положительной")
         self._balance += amount
-        print(f"[Deposit] Пополнено: {amount} {self.currency}. Баланс: {self._balance}")
+        print(f"Пополнено: {amount} {self.currency}. Баланс: {self._balance}")
 
     def withdraw(self, amount):
         self._check_status()
