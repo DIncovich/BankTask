@@ -18,7 +18,7 @@ class PremiumAccount(BankAccount):
             raise InsufficientFundsError(f"Превышен лимит овердрафта ({self.overdraft_limit})")
 
         self._balance -= total_withdraw
-        print(f"[Premium] Снято: {amount} + Комиссия: {self.commission}. Баланс: {self._balance}")
+        print(f"Снято: {amount} + Комиссия: {self.commission}. Баланс: {self._balance}")
 
     def get_account_info(self):
         info = super().get_account_info()
@@ -30,4 +30,4 @@ class PremiumAccount(BankAccount):
         return info
 
     def __str__(self):
-        return f"[Premium] {self.account_id} | Овердрафт до: -{self.overdraft_limit} | Баланс: {self._balance} {self.currency}"
+        return f"{self.account_id} | Овердрафт до: -{self.overdraft_limit} | Баланс: {self._balance} {self.currency}"
