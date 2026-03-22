@@ -16,21 +16,7 @@ class Bank:
             raise AuthenticationError("Клиент с таким ID не найден.")
 
         client = self.clients[client_id]
-
-        if client.status == 'blocked':
-            raise AuthenticationError("Вход запрещен: аккаунт заблокирован.")
-
-        if client.password == password:
-            client.failed_login_attempts = 0
-            print(f"Успешный вход. Здравствуйте, {client.full_name}!")
-            return True
-        else:
-            client.failed_login_attempts += 1
-            print(f"Неверный пароль! Попытка {client.failed_login_attempts} из 3.")
-            if client.failed_login_attempts >= 3:
-                client.status = 'blocked'
-                print(f"Аккаунт {client.full_name} заблокирован.")
-            return False
+        return client.authenticate(password)
 
     def open_account(self, client_id, account_obj):
         """привязка счета к клиенту и добавление в банк"""
@@ -39,8 +25,11 @@ class Bank:
             return
 
         self.all_accounts[account_obj.account_id] = account_obj
-        self.clients[client_id].accounts.append(account_obj.account_id)
-        print(f"Счет {account_obj.account_id} успешно привязан к клиенту {self.clients[client_id].full_name}.")
+
+        client = self.clients[client_id]
+        client.add_account(account_obj.account_id)
+
+        print(f"Счет {account_obj.account_id} успешно привязан к клиенту {client.full_name}.")
 
     def close_account(self, account_id):
         if account_id in self.all_accounts:
