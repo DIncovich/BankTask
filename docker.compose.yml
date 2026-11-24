@@ -1,0 +1,11 @@
+services:
+  bank-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bank-app:latest
+    container_name: bank-app
+    restart: "no"
+
+    ports:
+    - "8000:8000"
